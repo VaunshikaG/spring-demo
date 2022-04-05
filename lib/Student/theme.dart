@@ -1,9 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 
-class MyTheme
+class CustomTheme
 {
-  const MyTheme();
+  const CustomTheme();
 
   static const Color Coral1= Color(0xFFe07a5f);
   static const Color Coral2= Color(0xFFf2cc8f);
@@ -17,7 +17,7 @@ class MyTheme
 
   static const Color Blue1=Color(0xFF0D47A1);
   static const Color Blue2=Color(0xff42abef);
-  static const Color Blue22=Color(0xe5c6e3e3);
   static const Color Blue3=Color(0xffc6e3e3);
+  static const Color Blue4=Color(0xffdff1f1);
 
 }
