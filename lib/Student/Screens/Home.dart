@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sports/Student/Screens/Details.dart';
 import 'package:sports/Student/Screens/Register.dart';
 import '../theme.dart';
+import 'Update.dart';
 
 class Home extends StatefulWidget {
   @override

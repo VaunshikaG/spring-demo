@@ -224,9 +224,7 @@ class Editpg extends StatelessWidget {
                 Icons.edit,
                 color: Colors.white,
               ),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Update(student)));
-              },
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Update(student))),
             ),
           ],
         ),
