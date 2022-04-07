@@ -190,7 +190,7 @@ class _RegisterState extends State<Register> {
                       String firstName = fNameController.text;
                       String lastName = lNameController.text;
                       StudentModel newstudent =
-                          await registerStudent(firstName, lastName, context);
+                      await registerStudent(firstName, lastName, context);
                       fNameController.text = '';
                       lNameController.text = '';
                       setState(() {

@@ -66,101 +66,104 @@ class _DetailsState extends State<Details> {
           future: getDetails(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if(snapshot.hasData) {
-              return Container(
-                margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'ID',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          'First Name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                        Text(
-                          'Last Name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    Divider(
-                      height: 20,
-                      indent: 5,
-                      endIndent: 5,
-                      thickness: 0.7,
-                      color: Colors.black,
-                    ),
-                    SizedBox(height: 10),
-
-                    ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Editpg(snapshot.data[index])));
-                            },
-                            child: Column(
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      snapshot.data[index].id.toString(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    Text(
-                                      snapshot.data[index].firstName,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    Text(
-                                      snapshot.data[index].lastName,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Divider(
-                                  height: 18,
-                                  indent: 15,
-                                  endIndent: 15,
-                                  thickness: 0.7,
-                                  color: Colors.grey.shade400,
-                                ),
-                              ],
+              return SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'ID',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
-                          );
-                        }),
-                  ],
+                          ),
+                          Text(
+                            'First Name',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            'Last Name',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Divider(
+                        height: 20,
+                        indent: 5,
+                        endIndent: 5,
+                        thickness: 0.7,
+                        color: Colors.black,
+                      ),
+                      SizedBox(height: 10),
+
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Editpg(snapshot.data[index])));
+                              },
+                              child: Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        snapshot.data[index].id.toString(),
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        snapshot.data[index].firstName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        snapshot.data[index].lastName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 18,
+                                    indent: 15,
+                                    endIndent: 15,
+                                    thickness: 0.7,
+                                    color: Colors.grey.shade400,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                    ],
+                  ),
                 ),
               );
             }
