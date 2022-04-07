@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   splash_screen_view: ^3.0.0
   local_auth: ^1.1.9
+  http:
 
 
 dev_dependencies:

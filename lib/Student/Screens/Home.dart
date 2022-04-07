@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sports/Student/Screens/Details.dart';
+import 'package:sports/Student/Screens/Register.dart';
 import '../theme.dart';
 
 class Home extends StatefulWidget {
@@ -14,15 +16,15 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: CustomTheme.Blue1,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Student Management',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      body: Center(
-        child: Text(
+      body: const Center(
+        child: const Text(
           'Welcome\nto\nStudent Management',
           style: TextStyle(
             fontSize: 25,
@@ -37,11 +39,12 @@ class _HomeState extends State<Home> {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
+              duration: Duration(seconds: 3),
               child: Text(
                 'Student Management',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
@@ -50,28 +53,32 @@ class _HomeState extends State<Home> {
                 color: CustomTheme.Blue1,
               ),
             ),
-
             ListTile(
-              title: Text(
+              title: const Text(
                 'Register Student',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: CustomTheme.Blue1,
                 ),
               ),
-              onTap: () {},
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Register())),
+              // visualDensity: VisualDensity(horizontal: 0, vertical: -4),
             ),
             ListTile(
-              title: Text(
+              title: const Text(
                 'Student Details',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: CustomTheme.Blue1,
                 ),
               ),
-              onTap: () {},
+              onTap: () =>
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Details())),
+              // visualDensity: VisualDensity(horizontal: 0, vertical: -4),
             ),
           ],
         ),
