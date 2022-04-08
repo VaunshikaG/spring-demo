@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:rxdart/rxdart.dart';
 
 class LoginBLoC {
@@ -12,6 +14,9 @@ class LoginBLoC {
   // setters
   Function(String) get changeLemail => _lEmail.sink.add;
   Function(String) get changeLpswd => _lPswd.sink.add;
+
+  //  transformers for validtion
+
 
   void dispose() {
     _lEmail.close();

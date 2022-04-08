@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:sports/Sports/BLoC/Login_BloC.dart';
 import '../../theme.dart';
 import '../Home/Home.dart';
 import 'Signup.dart';
@@ -19,6 +21,9 @@ class _LoginpgState extends State<Loginpg> {
 
   @override
   Widget build(BuildContext context) {
+    //  calling bloc class
+    final bloc = Provider.of<LoginBLoC>(context, listen: false);
+
     return new WillPopScope(
       child: Scaffold(
         backgroundColor: MyTheme.Blue4,
@@ -49,123 +54,135 @@ class _LoginpgState extends State<Loginpg> {
                     ),
                     child: Column(
                       children: [
-                        //  username
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter username";
-                              }
-                            },
-                            controller: emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            cursorColor: MyTheme.Blue1,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                        //  email streambuilder is to listen stream from bloc
+                        StreamBuilder(
+                          stream: bloc.loginEmail,
+                          builder: (context, AsyncSnapshot<String> snaphot) => Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
+                            child: TextFormField(
+                              validator: (String text) {
+                                if (text.isEmpty || text.length >= 15) {
+                                  return "Please enter email";
+                                }
+                              },
+                              //  to set entered email
+                              onChanged: (value) => bloc.changeLemail,
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              cursorColor: MyTheme.Blue1,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              hintText: 'Username',
-                              errorStyle: TextStyle(
-                                  fontWeight: FontWeight.bold
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                hintText: 'Email',
+                                errorStyle: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                ),
                               ),
                             ),
                           ),
                         ),
 
+
                         //  password
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter password";
-                              }
-                            },
-                            controller: emailController,
-                            obscureText: _isObscure,
-                            keyboardType: TextInputType.visiblePassword,
-                            cursorColor: MyTheme.Blue1,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                        StreamBuilder(
+                          stream: bloc.loginPswd,
+                          builder: (context, AsyncSnapshot<String> snaphot) => Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
+                            child: TextFormField(
+                              validator: (String text) {
+                                if (text.isEmpty || text.length >= 15) {
+                                  return "Please enter password";
+                                }
+                              },
+                              //  to set entered pswd
+                              onChanged: (value) => bloc.changeLpswd,
+                              controller: emailController,
+                              obscureText: _isObscure,
+                              keyboardType: TextInputType.visiblePassword,
+                              cursorColor: MyTheme.Blue1,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              hintText: 'Password',
-                              suffixIcon: IconButton(
-                                  icon: Icon(_isObscure
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
-                                  }),
-                              errorStyle: TextStyle(
-                                  fontWeight: FontWeight.bold
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                hintText: 'Password',
+                                suffixIcon: IconButton(
+                                    icon: Icon(_isObscure
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    }),
+                                errorStyle: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                ),
                               ),
                             ),
                           ),
                         ),
+
 
                         //  login btn
                         Container(

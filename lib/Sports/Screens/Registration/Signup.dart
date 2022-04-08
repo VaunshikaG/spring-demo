@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:sports/Sports/BLoC/Signup_BloC.dart';
 import 'package:sports/Sports/Screens/Registration/Login.dart';
 import '../../theme.dart';
 import '../Home/Home.dart';
@@ -25,6 +27,8 @@ class _SignuppgState extends State<Signuppg> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of<SignupBLoC>(context, listen: false);
+
     return new WillPopScope(
       child: Scaffold(
         backgroundColor: MyTheme.Blue4,
@@ -46,327 +50,296 @@ class _SignuppgState extends State<Signuppg> {
                     child: Column(
                       children: [
                         //  first name
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            controller: fnameController,
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter name";
-                              }
-                            },
-                            cursorColor: MyTheme.Blue1,
-                            keyboardType: TextInputType.name,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                        StreamBuilder(
+                          stream: bloc.Name,
+                          builder: (context, AsyncSnapshot snapshot) => Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
+                            child: TextFormField(
+                              controller: fnameController,
+                              validator: (String text) {
+                                if (text.isEmpty || text.length >= 15) {
+                                  return "Please enter name";
+                                }
+                              },
+                              onChanged: (value) => bloc.changeName,
+                              cursorColor: MyTheme.Blue1,
+                              keyboardType: TextInputType.name,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(left: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              hintText: 'First name',
-                            ),
-                          ),
-                        ),
-
-                        //  last name
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            controller: lnameController,
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter name";
-                              }
-                            },
-                            cursorColor: MyTheme.Blue1,
-                            keyboardType: TextInputType.name,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                hintText: 'Full name',
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              hintText: 'Last name',
                             ),
                           ),
                         ),
 
                         //  mobile
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            controller: mobController,
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter mobile number";
-                              }
-                            },
-                            cursorColor: MyTheme.Blue1,
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                        StreamBuilder(
+                          stream: bloc.Mob,
+                          builder: (context, AsyncSnapshot snapshot) => Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
+                            child: TextFormField(
+                              controller: mobController,
+                              validator: (String text) {
+                                if (text.isEmpty || text.length >= 15) {
+                                  return "Please enter mobile number";
+                                }
+                              },
+                              onChanged: (value) => bloc.changeMob,
+                              cursorColor: MyTheme.Blue1,
+                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                              keyboardType: TextInputType.number,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(left: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                hintText: 'Mobile number',
                               ),
-                              hintText: 'Mobile number',
                             ),
                           ),
                         ),
 
-                        //  username
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            controller: emailController,
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter username";
-                              }
-                            },
-                            cursorColor: MyTheme.Blue1,
-                            keyboardType: TextInputType.emailAddress,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                        //  email
+                        StreamBuilder(
+                          stream: bloc.signupEmail,
+                          builder: (context, AsyncSnapshot snapshot) => Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
+                            child: TextFormField(
+                              controller: emailController,
+                              validator: (String text) {
+                                if (text.isEmpty || text.length >= 15) {
+                                  return "Please enter email";
+                                }
+                              },
+                              onChanged: (value) => bloc.changeSemail,
+                              cursorColor: MyTheme.Blue1,
+                              keyboardType: TextInputType.emailAddress,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(left: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                hintText: 'Email',
                               ),
-                              hintText: 'Username',
                             ),
                           ),
                         ),
 
                         //  password
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            controller: pswdController,
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter password";
-                              }
-                            },
-                            cursorColor: MyTheme.Blue1,
-                            obscureText: _isObscure2,
-                            keyboardType: TextInputType.visiblePassword,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                        StreamBuilder(
+                          stream: bloc.signupPswd,
+                          builder: (context, AsyncSnapshot snapshot) => Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
+                            child: TextFormField(
+                              controller: pswdController,
+                              validator: (String text) {
+                                if (text.isEmpty || text.length >= 15) {
+                                  return "Please enter password";
+                                }
+                              },
+                              onChanged: (value) => bloc.changeSpswd,
+                              cursorColor: MyTheme.Blue1,
+                              obscureText: _isObscure2,
+                              keyboardType: TextInputType.visiblePassword,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(left: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                hintText: 'Password',
+                                suffixIcon: IconButton(
+                                    icon: Icon(_isObscure1
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure1 = !_isObscure1;
+                                      });
+                                    }),
                               ),
-                              hintText: 'Password',
-                              suffixIcon: IconButton(
-                                  icon: Icon(_isObscure1
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure1 = !_isObscure1;
-                                    });
-                                  }),
                             ),
                           ),
                         ),
 
-                        Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.only(bottom: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: TextFormField(
-                            controller: confirm_pswdController,
-                            validator: (String text) {
-                              if (text.isEmpty || text.length >= 15) {
-                                return "Please enter password";
-                              }
-                            },
-                            cursorColor: MyTheme.Blue1,
-                            obscureText: _isObscure2,
-                            keyboardType: TextInputType.visiblePassword,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                        StreamBuilder(
+                          stream: bloc.Name,
+                          builder: (context, AsyncSnapshot snapshot) => Card(
+                            elevation: 0,
+                            margin: const EdgeInsets.only(bottom: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(left: 20),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
+                            child: TextFormField(
+                              controller: confirm_pswdController,
+                              validator: (String text) {
+                                if (text.isEmpty || text.length >= 15) {
+                                  return "Please enter password";
+                                }
+                              },
+                              onChanged: (value) => bloc.changeConfirmpswd,
+                              cursorColor: MyTheme.Blue1,
+                              obscureText: _isObscure2,
+                              keyboardType: TextInputType.visiblePassword,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(left: 20),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.red,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: MyTheme.Blue1,
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: MyTheme.Blue1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                hintText: 'Confirm Password',
+                                suffixIcon: IconButton(
+                                    icon: Icon(_isObscure2
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure2 = !_isObscure2;
+                                      });
+                                    }),
                               ),
-                              hintText: 'Confirm Password',
-                              suffixIcon: IconButton(
-                                  icon: Icon(_isObscure2
-                                      ? Icons.visibility_off
-                                      : Icons.visibility),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure2 = !_isObscure2;
-                                    });
-                                  }),
                             ),
                           ),
                         ),

@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'package:sports/Sports/theme.dart';
 
+import 'BLoC/Login_BloC.dart';
+import 'BLoC/Signup_BloC.dart';
 import 'Screens/Registration/Login.dart';
 
 void main() {
@@ -14,6 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
+      providers: [
+        Provider<LoginBLoC>(
+          create: (context) => LoginBLoC(),
+        ),
+        Provider<SignupBLoC>(
+          create: (context) => SignupBLoC(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
