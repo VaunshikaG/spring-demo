@@ -10,7 +10,8 @@ class NEW extends StatefulWidget {
 class _NEWState extends State<NEW> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container();
+      /*Container(
       child: DataTable(
         headingRowColor: MaterialStateProperty.resolveWith(
                 (states) => CustomTheme.Blue3),
@@ -70,7 +71,7 @@ class _NEWState extends State<NEW> {
               ),
               DataCell(
                 Text(
-                  snapshot.data[index].lastName,
+                  'snapshot.data[index].lastName',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -81,7 +82,7 @@ class _NEWState extends State<NEW> {
           ),
         ),
       ),
-    );
+    );*/
   }
 }
 
