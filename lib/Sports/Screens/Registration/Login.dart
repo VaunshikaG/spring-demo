@@ -187,6 +187,7 @@ class _LoginpgState extends State<Loginpg> {
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                               elevation: 5,
                               onPressed: snapshot.hasError || !snapshot.hasData ? null : () async {
+                                bloc.submit();
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                       return Homepg();
